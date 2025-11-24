@@ -1,0 +1,175 @@
+:root {
+  --color-primary: #2563EB;
+  --color-secondary: #F59E0B;
+  --color-success: #F59E0B;
+  --color-error: #EF4444;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 24px rgba(37, 99, 235, 0.12);
+  --shadow-lg: 0 12px 40px rgba(37, 99, 235, 0.15);
+  --ring: 0 0 0 3px rgba(37, 99, 235, 0.35);
+
+  --gradient-start: rgba(59,130,246,0.08);
+  --gradient-end: rgba(249,250,251,1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #__nuxt {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, Helvetica Neue, Arial, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end)) no-repeat fixed, var(--color-bg);
+  color: var(--color-text);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(17,24,39,0.08);
+  background: white;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+.btn.primary {
+  background: var(--color-primary);
+  color: white;
+  border-color: rgba(37,99,235,0.3);
+}
+.btn.primary:hover {
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-lg);
+}
+.btn.danger {
+  background: white;
+  color: var(--color-error);
+  border-color: rgba(239,68,68,0.3);
+}
+.btn.ghost {
+  background: transparent;
+  border-color: rgba(17,24,39,0.1);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(17,24,39,0.12);
+  background: white;
+  color: var(--color-text);
+  transition: all .15s ease;
+}
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--ring);
+}
+.textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+  border-bottom: 1px solid rgba(17,24,39,0.06);
+}
+
+.sidebar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
+  border-right: 1px solid rgba(17,24,39,0.06);
+}
+
+.note-list-item {
+  border-radius: 10px;
+  padding: 10px;
+  transition: background .15s ease, transform .1s ease, box-shadow .15s ease;
+  cursor: pointer;
+}
+.note-list-item:hover {
+  background: rgba(37,99,235,0.06);
+}
+.note-list-item.active {
+  background: rgba(37,99,235,0.12);
+  box-shadow: inset 0 0 0 1px rgba(37,99,235,0.25);
+}
+
+.meta {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(17,24,39,.15);
+  background: white;
+  color: #374151;
+  box-shadow: 0 1px 0 rgba(17,24,39,.06);
+}
+
+.hidden-sm {
+  display: none;
+}
+@media (min-width: 900px) {
+  .hidden-sm {
+    display: initial;
+  }
+}
+
+hr.separator {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(17,24,39,0), rgba(17,24,39,0.12), rgba(17,24,39,0));
+  margin: 16px 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .15s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
