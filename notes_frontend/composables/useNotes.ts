@@ -37,19 +37,23 @@ function createNotes() {
   })
 
   const selectedNote = computed(() =>
-    state.notes.find(n => n.id === state.selectedNoteId) || null
+    state.notes.find(n => n && n.id === state.selectedNoteId) || null
   )
 
   const sortedByUpdatedDesc = computed(() =>
-    [...state.notes].sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt))
+    [...state.notes]
+      .filter((n) => !!n && typeof n.updatedAt === 'string')
+      .sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt))
   )
 
   const filteredByQuery = computed(() => {
     const q = state.query.trim().toLowerCase()
     if (!q) return sortedByUpdatedDesc.value
-    return sortedByUpdatedDesc.value.filter(n =>
-      n.title.toLowerCase().includes(q) || n.content.toLowerCase().includes(q)
-    )
+    return sortedByUpdatedDesc.value.filter(n => {
+      const title = typeof n.title === 'string' ? n.title.toLowerCase() : ''
+      const content = typeof n.content === 'string' ? n.content.toLowerCase() : ''
+      return title.includes(q) || content.includes(q)
+    })
   })
 
   function safeRead<T>(key: string, fallback: T): T {
@@ -74,7 +78,9 @@ function createNotes() {
 
   function load() {
     const saved = safeRead<{ notes: Note[] }>(STORAGE_KEY, { notes: [] })
-    state.notes = Array.isArray(saved.notes) ? saved.notes : []
+    const incoming = Array.isArray(saved.notes) ? saved.notes : []
+    // Sanitize: drop null/undefined and ensure minimal fields exist
+    state.notes = incoming.filter((n: any) => n && typeof n === 'object' && typeof n.updatedAt === 'string')
     if (state.notes.length === 0) {
       state.notes = [seed()]
     }
